@@ -22,21 +22,18 @@ import utils.Utils;
 public class SubClassTransformation {
 
 	public static void main(String... strings) throws InvalidFormatException, IOException {
-		File metaDataFiles = new File(
-				"C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\Demo\\T2_\\All SAP DMS Records");
+		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\SubClassTests");
 		String documentNumber = "Document Number";
 		String documentType = "Document Type";
 		String documentDescription = "Document Description";
 
-		File transformationFile = new File(
-				"C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\transformationRules.xlsx");
+		File transformationFile = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\transformationRules.xlsx");
 		String charForSplit = "\\|";
 
-		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit);
+		processData(metaDataFiles, null, documentNumber, documentType, documentDescription, charForSplit);
 	}
 
-	public static Map<String, Map<String, String>> loadListData(File transformationFile)
-			throws IOException, InvalidFormatException {
+	public static Map<String, Map<String, String>> loadListData(File transformationFile) throws IOException, InvalidFormatException {
 		Map<String, Map<String, String>> transformationData = new HashMap<>();
 		try (Workbook listDataWorkbook = Utils.getWorkBook(transformationFile)) {
 			Sheet dataListSheet = listDataWorkbook.getSheetAt(0);
@@ -83,9 +80,8 @@ public class SubClassTransformation {
 		return transformationData;
 	}
 
-	public static void processData(File metaDataFiles, File transformationFile, String documentNumber,
-			String documentType, String documentDescription, String charForSplit)
-			throws InvalidFormatException, IOException {
+	public static void processData(File metaDataFiles, File transformationFile, String documentNumber, String documentType, String documentDescription,
+			String charForSplit) throws InvalidFormatException, IOException {
 
 		Map<String, Map<String, String>> listData = null;
 		Map<Integer, String> columnsToCheck = null;
@@ -103,8 +99,7 @@ public class SubClassTransformation {
 			boolean maxColsChanged = false;
 
 			for (File file : listOfFiles) {
-				if (file.getName().contains("results") || file.isDirectory() || file.getName().endsWith("txt")
-						|| file.getName().startsWith("~")) {
+				if (file.getName().contains("results") || file.isDirectory() || file.getName().endsWith("txt") || file.getName().startsWith("~")) {
 					continue;
 				}
 
@@ -159,8 +154,7 @@ public class SubClassTransformation {
 							// if it's not the header
 							if (r > 0) {
 
-								String description = Utils
-										.returnCellValueAsString(row.getCell((int) descriptionColumnNumber));
+								String description = Utils.returnCellValueAsString(row.getCell((int) descriptionColumnNumber));
 
 								if (description == null || description.equals("")) {
 									continue;
@@ -168,12 +162,10 @@ public class SubClassTransformation {
 
 								String zType = Utils.returnCellValueAsString(row.getCell((int) ZTypeToTransfor));
 
-								String subClassColumnValueToTransform = Utils
-										.returnCellValueAsString(row.getCell((int) subClassColumnToTransfor));
+								String subClassColumnValueToTransform = Utils.returnCellValueAsString(row.getCell((int) subClassColumnToTransfor));
 
 								String transformTo = "";
-								transformTo = SapDMSSubclassTransformationRules
-										.subClassTransformation(subClassColumnValueToTransform, zType);
+								transformTo = SapDMSSubclassTransformationRules.subClassTransformation(subClassColumnValueToTransform, zType);
 
 								Row writeToRow = writeSheet.createRow(writeSheet.getPhysicalNumberOfRows());
 
@@ -202,18 +194,15 @@ public class SubClassTransformation {
 															continue;
 														if (listData.get(key).containsKey(match)) {
 
-															cellMatchFoundIn = Integer.valueOf(
-																	key.substring(key.length() - 1, key.length()));
+															cellMatchFoundIn = Integer.valueOf(key.substring(key.length() - 1, key.length()));
 
 															if (cellMatchFoundIn == 1) {
-																if (!sj1.toString()
-																		.contains(listData.get(key).get(match))) {
+																if (!sj1.toString().contains(listData.get(key).get(match))) {
 																	sj1.add(listData.get(key).get(match));
 																}
 															}
 															if (cellMatchFoundIn == 2) {
-																if (!sj2.toString()
-																		.contains(listData.get(key).get(match))) {
+																if (!sj2.toString().contains(listData.get(key).get(match))) {
 																	sj2.add(listData.get(key).get(match));
 																}
 															}
@@ -282,8 +271,8 @@ public class SubClassTransformation {
 	}
 
 	/**
-	 * Gets all the cells from dataRow and copys them in writeToRow, basically it
-	 * copies the whole row, but skips the first one to allow to put the subClass
+	 * Gets all the cells from dataRow and copys them in writeToRow, basically it copies the whole row, but skips the first one to allow to put the
+	 * subClass
 	 * 
 	 * @param writeToRow
 	 * @param dataRow

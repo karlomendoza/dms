@@ -3,7 +3,11 @@ package TransformationRules;
 public class SapDMSSubclassTransformationRules {
 
 	public static String subClassTransformation(String documentNumber, String documentType) {
-		if (documentNumber.startsWith("CR-LOCR"))
+		// This one was put in here to avoid 964- problem
+		if (documentNumber.startsWith("964-97700-001-CR"))
+			return "Production Method - Production Line Setup Instructions";
+
+		else if (documentNumber.startsWith("CR-LOCR"))
 			return "Equipment, Facility, and Utility (EFU) - LO - Lock Out - Tag Out";
 		else if (documentNumber.startsWith("CR-OPCR"))
 			return "Equipment, Facility, and Utility (EFU) - OP - Operational Parameters";
@@ -180,8 +184,10 @@ public class SapDMSSubclassTransformationRules {
 			return "Production Method - Production Line Setup Instructions";
 		else if (documentNumber.startsWith("IS.PP.506.201"))
 			return "Production Method - Production Line Setup Instructions";
-		else if (documentNumber.startsWith("964-97700-001-CR"))
-			return "Production Method - Production Line Setup Instructions";
+
+		// this one was passed at the begingin to avoid problems with the 964- rule
+		// else if (documentNumber.startsWith("964-97700-001-CR"))
+		// return "Production Method - Production Line Setup Instructions";
 
 		else if (documentNumber.startsWith("Q") && documentType.equals("Z09"))
 			return "Product Packaging, Labeling, and Manuals - Artwork";
@@ -235,9 +241,8 @@ public class SapDMSSubclassTransformationRules {
 		else if (documentNumber.startsWith("T") && documentType.equals("Z09"))
 			return "Product Packaging, Labeling, and Manuals - Template/Print on Demand";
 
-		else if ((documentType.equals("Z10") || documentType.equals("Z11") || documentType.equals("Z05"))
-				&& (!documentNumber.startsWith("IS.PP.507.202.LA") && !documentNumber.startsWith("IS.PP.507.203.LA")
-						&& !documentNumber.startsWith("IS.PP.506.201")))
+		else if ((documentType.equals("Z10") || documentType.equals("Z11") || documentType.equals("Z05")) && (!documentNumber.startsWith("IS.PP.507.202.LA")
+				&& !documentNumber.startsWith("IS.PP.507.203.LA") && !documentNumber.startsWith("IS.PP.506.201")))
 			return "Quality System Procedure";
 		else if (documentNumber.startsWith("970-"))
 			return "Quality System Procedure";
