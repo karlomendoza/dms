@@ -7,6 +7,39 @@ public class SapDMSSubclassTransformationRules {
 		if (documentNumber.startsWith("964-97700-001-CR"))
 			return "Production Method - Production Line Setup Instructions";
 
+		else if (documentNumber.startsWith("812-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("820-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("826-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("830-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("840-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("842-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("855-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("870-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("880-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("881-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+		else if (documentNumber.startsWith("nnnnn-") && documentType.equals("Z04"))
+			return "Specification - Drawing";
+
+		else if (documentNumber.startsWith("10.70") && documentType.equals("Z08"))
+			return "Product Packaging, Labeling, and Manuals - Specification";
+		else if (documentNumber.startsWith("10.78") && documentType.equals("Z08"))
+			return "Product Packaging, Labeling, and Manuals - Specification";
+
+		else if (documentNumber.startsWith("10.87") && documentType.equals("Z08"))
+			return "Manual review";
+		else if (documentNumber.startsWith("10.89") && documentType.equals("Z08"))
+			return "Manual review";
+
 		else if (documentNumber.startsWith("CR-LOCR"))
 			return "Equipment, Facility, and Utility (EFU) - LO - Lock Out - Tag Out";
 		else if (documentNumber.startsWith("CR-OPCR"))
@@ -451,6 +484,21 @@ public class SapDMSSubclassTransformationRules {
 			return "Test Method - Physical";
 		else if (documentNumber.startsWith("90.PTM-056"))
 			return "Test Method - Physical";
+
+		else if (documentNumber.startsWith("10.") && documentType.equals("Z08"))
+			return "Spec - Commodity/Material";
+
+		else if (documentNumber.startsWith("CR-BOP") && documentType.equals("Z05"))
+			return "Quality System Procedure";
+		else if (documentNumber.startsWith("CR-BOP") && documentType.equals("Z10"))
+			return "Quality System Procedure";
+		else if (documentNumber.startsWith("CR-BOP") && documentType.equals("Z11"))
+			return "Quality System Procedure";
+
+		else if (documentNumber.startsWith("92.Z"))
+			return "Manual review";
+		else if (documentNumber.startsWith("92.Y"))
+			return "Manual review";
 
 		return "";
 	}

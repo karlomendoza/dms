@@ -30,7 +30,7 @@ public class SubClassTransformation {
 		File transformationFile = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\transformationRules.xlsx");
 		String charForSplit = "\\|";
 
-		processData(metaDataFiles, null, documentNumber, documentType, documentDescription, charForSplit);
+		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit);
 	}
 
 	public static Map<String, Map<String, String>> loadListData(File transformationFile) throws IOException, InvalidFormatException {
