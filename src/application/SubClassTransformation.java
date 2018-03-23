@@ -22,7 +22,7 @@ import utils.Utils;
 public class SubClassTransformation {
 
 	public static void main(String... strings) throws InvalidFormatException, IOException {
-		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\SubClassTests");
+		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\All sap dms Records\\");
 		String documentNumber = "Document Number";
 		String documentType = "Document Type";
 		String documentDescription = "Document Description";
