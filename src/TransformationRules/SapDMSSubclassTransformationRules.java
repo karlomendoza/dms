@@ -361,9 +361,7 @@ public class SapDMSSubclassTransformationRules {
 		else if (documentNumber.startsWith("910-"))
 			return "Spec - Environmental Specification";
 
-		else if (documentType.startsWith("Z13"))
-			return "Spec - Marketed Product Stability Protocol";
-		else if (documentNumber.startsWith("45."))
+		else if (documentType.startsWith("Z13") && documentNumber.startsWith("45."))
 			return "Spec - Marketed Product Stability Protocol";
 
 		else if (documentNumber.startsWith("95."))
