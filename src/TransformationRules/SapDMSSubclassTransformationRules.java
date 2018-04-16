@@ -35,10 +35,10 @@ public class SapDMSSubclassTransformationRules {
 		else if (documentNumber.startsWith("10.78") && documentType.equals("Z08"))
 			return "Product Packaging, Labeling, and Manuals - Specification";
 
-		else if (documentNumber.startsWith("10.87") && documentType.equals("Z08"))
-			return "Manual review";
-		else if (documentNumber.startsWith("10.89") && documentType.equals("Z08"))
-			return "Manual review";
+		// else if (documentNumber.startsWith("10.87") && documentType.equals("Z08"))
+		// return "Manual review";
+		// else if (documentNumber.startsWith("10.89") && documentType.equals("Z08"))
+		// return "Manual review";
 
 		else if (documentNumber.startsWith("CR-LOCR"))
 			return "Equipment, Facility, and Utility (EFU) - LO - Lock Out - Tag Out";
@@ -493,10 +493,10 @@ public class SapDMSSubclassTransformationRules {
 		else if (documentNumber.startsWith("CR-BOP") && documentType.equals("Z11"))
 			return "Quality System Procedure";
 
-		else if (documentNumber.startsWith("92.Z"))
-			return "Manual review";
-		else if (documentNumber.startsWith("92.Y"))
-			return "Manual review";
+		// else if (documentNumber.startsWith("92.Z"))
+		// return "Manual review";
+		// else if (documentNumber.startsWith("92.Y"))
+		// return "Manual review";
 
 		return "";
 	}

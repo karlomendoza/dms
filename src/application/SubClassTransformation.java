@@ -22,15 +22,16 @@ import utils.Utils;
 public class SubClassTransformation {
 
 	public static void main(String... strings) throws InvalidFormatException, IOException {
-		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\All sap dms Records\\");
+		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\Delta\\Delta\\");
 		String documentNumber = "Document Number";
 		String documentType = "Document Type";
 		String documentDescription = "Document Description";
+		String revColumn = "Document version";
 
 		File transformationFile = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\transformationRules.xlsx");
 		String charForSplit = "\\|";
 
-		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit);
+		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit, revColumn);
 	}
 
 	public static Map<String, Map<String, String>> loadListData(File transformationFile) throws IOException, InvalidFormatException {
@@ -81,7 +82,7 @@ public class SubClassTransformation {
 	}
 
 	public static void processData(File metaDataFiles, File transformationFile, String documentNumber, String documentType, String documentDescription,
-			String charForSplit) throws InvalidFormatException, IOException {
+			String charForSplit, String revColumn) throws InvalidFormatException, IOException {
 
 		Map<String, Map<String, String>> listData = null;
 		Map<Integer, String> columnsToCheck = null;
@@ -137,6 +138,7 @@ public class SubClassTransformation {
 					int subClassColumnToTransfor = -1;
 					int ZTypeToTransfor = -1;
 					int descriptionColumnNumber = -1;
+					int revColumnNumber = -1;
 
 					if (writeSheet.getPhysicalNumberOfRows() == 0) {
 						Row createRow = writeSheet.createRow(0);
@@ -167,6 +169,16 @@ public class SubClassTransformation {
 								String transformTo = "";
 								transformTo = SapDMSSubclassTransformationRules.subClassTransformation(subClassColumnValueToTransform, zType);
 
+								String rev = Utils.returnCellValueAsString(row.getCell((int) revColumnNumber));
+
+								if (rev.contains(".")) {
+									rev = rev.substring(0, rev.indexOf("."));
+								}
+
+								if (rev.length() == 1) {
+									row.getCell((int) revColumnNumber).setCellValue("0" + rev);
+								}
+
 								Row writeToRow = writeSheet.createRow(writeSheet.getPhysicalNumberOfRows());
 
 								Cell createCell = writeToRow.createCell(0);
@@ -181,7 +193,13 @@ public class SubClassTransformation {
 											if (cell != null) {
 												String valueString = Utils.returnCellValueAsString(cell);
 
-												String[] split = valueString.split(charForSplit);
+												String[] split = null;
+												if (valueString.contains("^")) {
+													split = valueString.split("\\^");
+												} else {
+													split = valueString.split(charForSplit);
+												}
+												// split = valueString.split(charForSplit);
 												StringJoiner sj1 = new StringJoiner(";");
 												StringJoiner sj2 = new StringJoiner(";");
 
@@ -222,10 +240,11 @@ public class SubClassTransformation {
 													writeCell.setCellValue(sj2.toString());
 												}
 
-												if (sj1.toString().isEmpty() && sj2.toString().isEmpty()) {
-													Cell writeCell = writeToRow.createCell(1);
-													writeCell.setCellValue("");
-												}
+												// what wwas this created for? does god exists?
+												// if (sj1.toString().isEmpty() && sj2.toString().isEmpty()) {
+												// Cell writeCell = writeToRow.createCell(1);
+												// writeCell.setCellValue("");
+												// }
 											}
 										}
 									}
@@ -245,6 +264,9 @@ public class SubClassTransformation {
 										}
 										if (valueString.equals(documentDescription)) {
 											descriptionColumnNumber = c;
+										}
+										if (valueString.equals(revColumn)) {
+											revColumnNumber = c;
 										}
 
 										// one on one transformation stuff
