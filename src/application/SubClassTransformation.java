@@ -22,16 +22,17 @@ import utils.Utils;
 public class SubClassTransformation {
 
 	public static void main(String... strings) throws InvalidFormatException, IOException {
-		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\Delta\\Delta\\");
+		File metaDataFiles = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\nativeFilesTests\\extract\\");
 		String documentNumber = "Document Number";
 		String documentType = "Document Type";
 		String documentDescription = "Document Description";
 		String revColumn = "Document version";
+		Boolean runForAttachments = true;
 
 		File transformationFile = new File("C:\\Users\\Karlo Mendoza\\Excel Work\\ICU MEDICAL\\SAP DMS\\transformationRules.xlsx");
 		String charForSplit = "\\|";
 
-		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit, revColumn);
+		processData(metaDataFiles, transformationFile, documentNumber, documentType, documentDescription, charForSplit, revColumn, runForAttachments);
 	}
 
 	public static Map<String, Map<String, String>> loadListData(File transformationFile) throws IOException, InvalidFormatException {
@@ -82,7 +83,7 @@ public class SubClassTransformation {
 	}
 
 	public static void processData(File metaDataFiles, File transformationFile, String documentNumber, String documentType, String documentDescription,
-			String charForSplit, String revColumn) throws InvalidFormatException, IOException {
+			String charForSplit, String revColumn, boolean runForAttachments) throws InvalidFormatException, IOException {
 
 		Map<String, Map<String, String>> listData = null;
 		Map<Integer, String> columnsToCheck = null;
@@ -158,7 +159,7 @@ public class SubClassTransformation {
 
 								String description = Utils.returnCellValueAsString(row.getCell((int) descriptionColumnNumber));
 
-								if (description == null || description.equals("")) {
+								if (!runForAttachments && (description == null || description.equals(""))) {
 									continue;
 								}
 
